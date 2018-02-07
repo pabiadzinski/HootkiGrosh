@@ -1,5 +1,5 @@
 {
-    "name": "alexantr/hootkigrosh",
+    "name": "pabiadzinski/hootkigrosh",
     "type": "library",
     "description": "Working with Hutki Grosh API (www.hutkigrosh.by)",
     "keywords": ["hootkigrosh", "hutkigrosh", "payments", "api"],
