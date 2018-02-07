@@ -217,7 +217,7 @@ class HootkiGrosh
         $Bill->addAttribute('xmlns', 'http://www.hutkigrosh.by/api/invoicing');
         $Bill->addChild('eripId', trim($data['eripId']));
         $Bill->addChild('invId', trim($data['invId']));
-        $Bill->addChild('dueDt', date('c', strtotime('+1 day'))); // +1 день
+        $Bill->addChild('dueDt', isset($data['dueDt']) ? $data['dueDt'] : date('c', strtotime('+1 day')));
         $Bill->addChild('addedDt', date('c'));
         $Bill->addChild('fullName', trim($data['fullName']));
         $Bill->addChild('mobilePhone', trim($data['mobilePhone']));
