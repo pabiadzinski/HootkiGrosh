@@ -9,7 +9,7 @@
 Установка через [Composer](http://getcomposer.org/):
 
 ```
-composer require alexantr/hootkigrosh "~1.0"
+composer require pabiadzinski/hootkigrosh "1.0"
 ```
 
 ## Пример использования
