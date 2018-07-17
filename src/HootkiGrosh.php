@@ -405,6 +405,48 @@ class HootkiGrosh
     }
 
     /**
+     * @param $billId
+     * @param $returnUrl
+     * @param $cancelReturnUrl
+     * @param string $buttonTitle
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function apiWebPay($billId, $returnUrl, $cancelReturnUrl, $buttonTitle = 'Оплатить картой')
+    {
+        if (empty($billId) || empty($returnUrl) || empty($cancelReturnUrl)) {
+            throw new \Exception('Invalid params', 422);
+        }
+
+        $request = new \SimpleXMLElement('<WebPayParam></WebPayParam>');
+
+        $request->addAttribute('xmlns', 'http://www.hutkigrosh.by/API/PaymentSystems');
+        $request->addChild('billId', $billId);
+
+        $request->addChild('returnUrl', $returnUrl);
+        $request->addChild('cancelReturnUrl', $cancelReturnUrl);
+        $request->addChild('submitValue', $buttonTitle);
+
+        $xml = $request->asXML();
+
+        // запрос
+        $res = $this->requestPost('Pay/WebPay', $xml);
+
+        if (!$res) {
+            return false;
+        }
+
+        $responseXml = simplexml_load_string($this->response);
+
+        if (!isset($responseXml->status) || $responseCode = (int)$responseXml->status !== 0) {
+            $this->error = $this->response_error_text;
+            return false;
+        }
+
+        return array('status' => $responseCode, 'form' => (string)$responseXml->form);
+    }
+
+    /**
      * Получить текст ошибки
      * @return string
      */
